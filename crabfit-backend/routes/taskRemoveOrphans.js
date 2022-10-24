@@ -1,18 +1,22 @@
 import dayjs from 'dayjs'
+import * as db from '../db'
 
 const taskRemoveOrphans = async (req, res) => {
   if (req.header('X-Appengine-Cron') === undefined) {
     return res.status(400).send({ error: 'This task can only be run from a cron job' })
   }
 
-  const threeMonthsAgo = dayjs().subtract(3, 'month').unix()
+  const threeMonthsAgo = dayjs().subtract(3, 'month').format()
 
   console.log(`Running orphan removal task at ${dayjs().format('h:mma D MMM YYYY')}`)
 
   try {
     // Fetch people that are older than 3 months
-    const peopleQuery = req.datastore.createQuery(req.types.person).filter('created', '<', threeMonthsAgo)
-    const oldPeople = (await req.datastore.runQuery(peopleQuery))[0]
+    const oldPeople = (await db.PersonModel.find({
+      created: {
+        $gt: threeMonthsAgo
+      }
+    }))
 
     if (oldPeople && oldPeople.length > 0) {
       console.log(`Found ${oldPeople.length} people older than 3 months, checking for events`)
@@ -20,11 +24,17 @@ const taskRemoveOrphans = async (req, res) => {
       // Fetch events linked to the people discovered
       let peopleWithoutEvents = 0
       await Promise.all(oldPeople.map(async person => {
-        const event = (await req.datastore.get(req.datastore.key([req.types.event, person.eventId])))[0]
+        const event = await db.EventModel.find({
+          key: person.eventId
+        })
 
         if (!event) {
           peopleWithoutEvents++
-          await req.datastore.delete(person[req.datastore.KEY])
+          await db.PersonModel.deleteMany({
+            created: {
+              $gt: threeMonthsAgo
+            }
+          })
         }
       }))
 

@@ -287,7 +287,7 @@ const Event = () => {
         {(!!event || isLoading) ? (
           <>
             <EventName $isLoading={isLoading}>{event?.name}</EventName>
-            <EventDate $isLoading={isLoading} locale={locale} title={event?.created && dayjs.unix(event?.created).format('D MMMM, YYYY')}>{event?.created && t('common:created', { date: dayjs.unix(event?.created).fromNow() })}</EventDate>
+            <EventDate $isLoading={isLoading} locale={locale} title={event?.created && dayjs(event?.created).format('D MMMM, YYYY')}>{event?.created && t('common:created', { date: dayjs(event?.created).fromNow() })}</EventDate>
             <ShareInfo
               onClick={() => navigator.clipboard?.writeText(`https://crab.fit/${id}`)
                 .then(() => {

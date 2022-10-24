@@ -1,9 +1,13 @@
+import * as db from '../db'
+
 const getPeople = async (req, res) => {
   const { eventId } = req.params
 
   try {
-    const query = req.datastore.createQuery(req.types.person).filter('eventId', eventId)
-    let people = (await req.datastore.runQuery(query))[0]
+    let people = await db.PersonModel.find({
+      eventId
+    }).lean()
+
     people = people.map(person => ({
       name: person.name,
       availability: person.availability,

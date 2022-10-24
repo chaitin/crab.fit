@@ -22,7 +22,7 @@ const Recents = ({ target }) => {
           {recents.map(event => (
             <Recent href={`/${event.id}`} target={target} key={event.id}>
               <span className="name">{event.name}</span>
-              <span locale={locale} className="date" title={dayjs.unix(event.created).format('D MMMM, YYYY')}>{t('common:created', { date: dayjs.unix(event.created).fromNow() })}</span>
+              <span locale={locale} className="date" title={dayjs(event.created).format('D MMMM, YYYY')}>{t('common:created', { date: dayjs(event.created).fromNow() })}</span>
             </Recent>
           ))}
         </StyledMain>

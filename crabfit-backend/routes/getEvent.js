@@ -1,10 +1,13 @@
 import dayjs from 'dayjs'
+import * as db from '../db'
 
 const getEvent = async (req, res) => {
   const { eventId } = req.params
 
   try {
-    const event = (await req.datastore.get(req.datastore.key([req.types.event, eventId])))[0]
+    const event = (await db.EventModel.find({
+      key: eventId
+    }).lean())[0]
 
     if (event) {
       res.send({
@@ -13,9 +16,12 @@ const getEvent = async (req, res) => {
       })
 
       // Update last visited time
-      await req.datastore.upsert({
-        ...event,
-        visited: dayjs().unix()
+      await db.EventModel.findOneAndUpdate({
+        eventId
+      }, {
+        $set: {
+          visited: dayjs().format()
+        }
       })
     } else {
       res.status(404).send({ error: 'Event not found' })

@@ -195,7 +195,7 @@ const AvailabilityViewer = ({
                   }}
                   onMouseOver={() => setTempFocus(person.name)}
                   onMouseOut={() => setTempFocus(null)}
-                  title={person.created && dayjs.unix(person.created).fromNow()}
+                  title={person.created && dayjs(person.created).fromNow()}
                 >{person.name}</Person>
               )}
             </People>

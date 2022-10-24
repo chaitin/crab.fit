@@ -1,19 +1,15 @@
 import packageJson from '../package.json'
+import * as db from '../db'
 
 const stats = async (req, res) => {
   let eventCount = null
   let personCount = null
 
   try {
-    const eventResult = (await req.datastore.get(req.datastore.key([req.types.stats, 'eventCount'])))[0] || null
-    const personResult = (await req.datastore.get(req.datastore.key([req.types.stats, 'personCount'])))[0] || null
+    const statsResult = (await db.StatsModel.find())[0] || null
 
-    if (eventResult) {
-      eventCount = eventResult.value
-    }
-    if (personResult) {
-      personCount = personResult.value
-    }
+    eventCount = statsResult?.eventCount || 0
+    personCount = statsResult?.personCount || 0
 
   } catch (e) {
     console.error(e)

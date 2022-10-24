@@ -4,6 +4,8 @@ import punycode from 'punycode/'
 import adjectives from '../res/adjectives.json'
 import crabs from '../res/crabs.json'
 
+import * as db from '../db'
+
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1)
 
 // Generate a random name based on an adjective and a crab species
@@ -26,16 +28,14 @@ const createEvent = async (req, res) => {
   try {
     const name = event.name.trim() === '' ? generateName() : event.name.trim()
     let eventId = generateId(name)
-    const currentTime = dayjs().unix()
+    const currentTime = dayjs().format()
 
     // Check if the event ID already exists, and if so generate a new one
     let eventResult
     do {
-      const query = req.datastore.createQuery(req.types.event)
-        .select('__key__')
-        .filter('__key__', req.datastore.key([req.types.event, eventId]))
-
-      eventResult = (await req.datastore.runQuery(query))[0][0]
+      eventResult = (await db.EventModel.find({
+        key: eventId
+      }))[0]
 
       if (eventResult !== undefined) {
         eventId = generateId(name)
@@ -43,37 +43,42 @@ const createEvent = async (req, res) => {
     } while (eventResult !== undefined)
 
     const entity = {
-      key: req.datastore.key([req.types.event, eventId]),
-      data: {
-        name: name,
-        created: currentTime,
-        times: event.times,
-        timezone: event.timezone,
-      },
-    }
-
-    await req.datastore.insert(entity)
-
-    res.status(201).send({
-      id: eventId,
+      key: eventId,
       name: name,
       created: currentTime,
       times: event.times,
       timezone: event.timezone,
+    }
+
+    new db.EventModel(entity).save(() => {
+      res.status(201).send({
+        id: eventId,
+        name: name,
+        created: currentTime,
+        times: event.times,
+        timezone: event.timezone,
+      })
     })
 
     // Update stats
-    const eventCountResult = (await req.datastore.get(req.datastore.key([req.types.stats, 'eventCount'])))[0] || null
-    if (eventCountResult) {
-      await req.datastore.upsert({
-        ...eventCountResult,
-        value: eventCountResult.value + 1,
-      })
+    const statsCountResult = (await db.StatsModel.find())[0] || null
+    if (statsCountResult) {
+      const defaultCount = {
+        eventCount: 1
+      }
+      const opra = statsCountResult?.eventCount >= 0 ? {
+        $inc: defaultCount
+      } : {
+        $set: defaultCount
+      }
+      await db.StatsModel.findByIdAndUpdate({
+        _id: statsCountResult._id
+      }, opra)
     } else {
-      await req.datastore.insert({
-        key: req.datastore.key([req.types.stats, 'eventCount']),
-        data: { value: 1 },
-      })
+      await new db.StatsModel({
+        eventCount: 1,
+        personCount: 0,
+      }).save()
     }
   } catch (e) {
     console.error(e)
