@@ -72,12 +72,12 @@ const locales = {
     weekStart: 1,
     timeFormat: '24h',
   },
-  // 'zh-CN': { // Chinese
-  //   name: '中文',
-  //   import: () => import('dayjs/locale/zh-cn'),
-  //   weekStart: 1,
-  //   timeFormat: '12h',
-  // },
+  'zh-CN': { // Chinese
+    name: '中文',
+    import: () => import('dayjs/locale/zh-cn'),
+    weekStart: 1,
+    timeFormat: '12h',
+  },
 }
 
 export default locales

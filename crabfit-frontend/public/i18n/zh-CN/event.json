@@ -1,0 +1,67 @@
+{
+  "available": "时间可选",
+  "greyed_times": "这个区域是灰色的，因为它不是活动的一部分。您可能正在与创建该事件的地方不同的时区查看该事件。",
+
+  "nav": {
+    "title": "点击复制",
+    "copied": "已复制!",
+    "shareinfo": "复制链接, 或通过 <1>email</1>共享。",
+    "shareinfo_alt": "单击上面的链接将其复制到剪贴板，或通过 <1>email</1>共享。",
+    "email_subject": "日程：{{event_name}}",
+    "email_body": "点击链接查看我的日程："
+  },
+  "form": {
+    "signed_out": "注册使用日程管理",
+    "signed_in": "欢迎：{{name}}",
+
+    "name": "用户名",
+    "password": "密码 (可选)",
+    "button": "登录",
+    "logout_button": "注销",
+    "info": "该账号密码仅适用于此事件，使用密码防止他人更改你的日程。",
+
+    "timezone": "时区",
+
+    "errors": {
+      "name_required": "使用 id 来存储你的行程。",
+      "password_incorrect": "密码错误。",
+      "unknown": "登录失败，稍后重试。"
+    },
+
+    "created_in_timezone": "事件已经创建，基于 <strong>{{timezone}}</strong> 时区。<3>点击此处</3>使用。",
+    "local_timezone": "检测到你的时区是 <strong>{{timezone}}</strong>。<3>点击此处</3>使用"
+  },
+  "offline": {
+    "title": "你已经离线",
+    "body": "Crab Fit 离线状态。<br />确认你拥有互联网访问权限并重试。"
+  },
+  "error": {
+    "title": "事件不存在",
+    "body": "检查您输入的 url 是否正确。请注意：为了保护您的隐私，事件在过期 3 个月后将被删除。"
+  },
+
+  "tabs": {
+    "you": "你的日程",
+    "you_tooltip": "登录设置自己的日程",
+    "group": "团队日程"
+  },
+
+  "group": {
+    "legend_tooltip": "点击高亮日程",
+    "info1": "悬停或轻触下面的日历以查看有谁空闲",
+    "info2": "点击名字查看其信息"
+  },
+
+  "you": {
+    "info": "单击并拖动下面的日历以设置日程",
+    "google_cal": {
+      "login": "同步谷歌日历",
+      "logout": "注销",
+      "select_all": "选择全部",
+      "select_none": "清空选择",
+      "info": "导入将会覆盖当前日程",
+      "button": "导入日程"
+    },
+    "outlook_cal": "同步outlook日程"
+  }
+}

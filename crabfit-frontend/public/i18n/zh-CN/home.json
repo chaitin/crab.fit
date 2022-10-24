@@ -1,0 +1,61 @@
+{
+  "create": "创建一个",
+  "recently_visited": "最近浏览",
+  "nav": {
+    "about": "关于",
+    "donate": "支持我们"
+  },
+  "form": {
+    "name": {
+      "label": "事件名称",
+      "sublabel": "留空自动生成"
+    },
+    "dates": {
+      "label": "工作日期",
+      "sublabel": "拖拽进行选择",
+      "options": {
+        "specific": "其它指定日期",
+        "week": "本周内"
+      },
+      "tooltips": {
+        "previous": "前一个月",
+        "next": "下个月",
+        "today": "今天"
+      }
+    },
+    "times": {
+      "label": "工作时间",
+      "sublabel": "拖拽选择时间范围"
+    },
+    "timezone": {
+      "label": "时区",
+      "defaultOption": "选择..."
+    },
+
+    "button": "创建",
+    "errors": {
+      "no_dates": "未选择日期",
+      "same_times": "开始时间和结束时间不能相同",
+      "no_time": "未选择时间",
+      "unknown": "出现未知错误，稍后重试。"
+    }
+  },
+  "offline": "没有互联网无法使用 crab fit，检查你的互联网连接。",
+
+  "about": {
+    "name": "关于 Crab Fit",
+    "events": "事件数",
+    "availabilities": "使用人数",
+    "content": {
+      "p1": "Crab Fit 可以帮助你根据每个人的日程安排活动。只需在上面创建一个事件，并将链接发送给每个参与的人。结果会实时更新，你可以看到一个热图，谁将会有空余时间。<1/><2>了解更多关于 Crab Fit</2>。",
+      "p3": "由 <1>Ben Grant</1> 创建，Crab Fit 是您小组活动计划辩论的现代解决方案。",
+      "p4": "Crab Fit 的代码是开源的，如果你发现任何问题或想投稿，可以访问 <1>Crab Fit 库</1>。使用 Crab Fit 表示您同意<3>隐私政策</3>。",
+      "p6": "为了保护您的隐私，活动在3个月不活动后被删除，并且所有密码都被 hash 处理",
+      "p5": "Crab Fit 对每个人免费提供，如果它帮助了你，可以考虑在下方捐款 🦀"
+    },
+    "chrome_extension": "获取 Chrome 扩展",
+    "firefox_extension": "获取 Firefox 扩展",
+    "safari_extension": "获取 Safari 扩展",
+    "android_app": "下载安卓应用"
+  }
+}

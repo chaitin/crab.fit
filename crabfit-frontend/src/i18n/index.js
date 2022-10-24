@@ -12,7 +12,7 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
+    fallbackLng: 'zh_CN',
     supportedLngs: Object.keys(locales),
     ns: 'common',
     debug: process.env.NODE_ENV !== 'production',
